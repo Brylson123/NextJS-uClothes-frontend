@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Nav from "@/app/components/layouts/Nav";
 
 
 export const metadata: Metadata = {
@@ -15,7 +14,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <Nav/>
       </body>
     </html>
   );
