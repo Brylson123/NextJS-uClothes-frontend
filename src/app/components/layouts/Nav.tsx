@@ -55,6 +55,12 @@ const Nav: React.FC<{ setCategory: (category: string) => void }> = ({ setCategor
                                 >
                                     <a
                                         className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
+                                        href={'/'}
+                                    >
+                                        All
+                                    </a>
+                                    <a
+                                        className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
                                         onClick={() => handleCategorySelect('shirts')}
                                     >
                                         SHIRTS
