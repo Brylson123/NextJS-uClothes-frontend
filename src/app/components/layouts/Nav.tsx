@@ -1,9 +1,11 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Nav: React.FC<{ setCategory: (category: string) => void }> = ({ setCategory }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const router = useRouter();
 
     const handleMouseEnter = () => {
         if (timeoutRef.current) {
@@ -27,6 +29,11 @@ const Nav: React.FC<{ setCategory: (category: string) => void }> = ({ setCategor
         };
     }, []);
 
+    const handleCategorySelect = (category: string) => {
+        setCategory(category);
+        router.push(`/category/${category}`);
+    };
+
     return (
         <nav className="bg-white border-b sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -48,31 +55,31 @@ const Nav: React.FC<{ setCategory: (category: string) => void }> = ({ setCategor
                                 >
                                     <a
                                         className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
-                                        onClick={() => setCategory('shirts')}
+                                        onClick={() => handleCategorySelect('shirts')}
                                     >
                                         SHIRTS
                                     </a>
                                     <a
                                         className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
-                                        onClick={() => setCategory('pants')}
+                                        onClick={() => handleCategorySelect('pants')}
                                     >
                                         PANTS
                                     </a>
                                     <a
                                         className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
-                                        onClick={() => setCategory('jackets')}
+                                        onClick={() => handleCategorySelect('jackets')}
                                     >
                                         JACKETS
                                     </a>
                                     <a
                                         className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
-                                        onClick={() => setCategory('shoes')}
+                                        onClick={() => handleCategorySelect('shoes')}
                                     >
                                         SHOES
                                     </a>
                                     <a
                                         className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
-                                        onClick={() => setCategory('accessories')}
+                                        onClick={() => handleCategorySelect('accessories')}
                                     >
                                         ACCESSORIES
                                     </a>

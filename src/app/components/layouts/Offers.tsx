@@ -22,7 +22,7 @@ const Offers: React.FC<OffersProps> = ({selectedCategory}) => {
     useEffect(() => {
         const fetchOffers = async () => {
             setLoading(true);
-            setError(null);  // Reset error state
+            setError(null);
             try {
                 const url = selectedCategory
                     ? `${process.env.NEXT_PUBLIC_API_URL}/category/${selectedCategory}`
