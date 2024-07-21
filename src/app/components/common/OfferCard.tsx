@@ -1,6 +1,6 @@
-'use client'
 import React from 'react';
-import Image from "next/image";
+import Image from 'next/image';
+import {useRouter} from 'next/navigation';
 
 interface OfferCardProps {
     id: string;
@@ -10,22 +10,29 @@ interface OfferCardProps {
     price: number;
 }
 
-const OfferCard: React.FC<OfferCardProps> = ({ name, description, imageName, price}) => {
-    const imageUrl = `http://localhost:8080/image/${imageName}`;
+const OfferCard: React.FC<OfferCardProps> = ({id, name, description, imageName, price}) => {
+    const imageUrl = `${process.env.NEXT_PUBLIC_API_URL}/image/${imageName}`;
+    const router = useRouter();
+
+    const handleClick = () => {
+        router.push(`/offer/${id}`);
+    };
 
     return (
-        <div className="p-4 border rounded">
-            <Image
-                src={imageUrl}
-                alt={name}
-                width={400}
-                height={400}
-                className="w-full h-64 object-cover"
-            />
-            <div className="mt-4">
-                <h2 className="text-lg font-bold">{name}</h2>
-                <p className="text-gray-500">{description}</p>
-                <p className="text-gray-900 font-bold">{price.toFixed(2)}zł</p>
+        <div onClick={handleClick} className="cursor-pointer">
+            <div className={`p-4 border rounded  w-full`}>
+                <Image
+                    src={imageUrl}
+                    alt={name}
+                    width={400}
+                    height={400}
+                    className="object-cover  h-64 w-full"
+                />
+                <div className="mt-4">
+                    <h2 className="text-lg font-bold">{name}</h2>
+                    <p className="text-gray-500">{description}</p>
+                    <p className="text-gray-900 font-bold">{price.toFixed(2)}zł</p>
+                </div>
             </div>
         </div>
     );
