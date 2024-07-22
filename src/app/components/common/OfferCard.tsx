@@ -24,8 +24,12 @@ const OfferCard: React.FC<OfferCardProps> = ({id, name, imageName, price}) => {
                     <Image
                         src={imageUrl}
                         alt={name}
-                        layout="fill"
+                        fill
                         className="object-contain"
+                        sizes="(max-width: 768px) 100vw,
+                               (max-width: 1200px) 50vw,
+                               33vw"
+                        priority
                     />
                 </div>
                 <div className="mt-4">
