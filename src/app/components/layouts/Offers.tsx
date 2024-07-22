@@ -12,9 +12,10 @@ interface Offer {
 
 interface OffersProps {
     selectedCategory: string | null;
+    selectedGender: string | null;
 }
 
-const Offers: React.FC<OffersProps> = ({selectedCategory}) => {
+const Offers: React.FC<OffersProps> = ({selectedCategory, selectedGender}) => {
     const [offers, setOffers] = useState<Offer[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -25,7 +26,7 @@ const Offers: React.FC<OffersProps> = ({selectedCategory}) => {
             setError(null);
             try {
                 const url = selectedCategory
-                    ? `${process.env.NEXT_PUBLIC_API_URL}/category/${selectedCategory}`
+                    ? `${process.env.NEXT_PUBLIC_API_URL}/category/${selectedCategory}?gender=${selectedGender}`
                     : `${process.env.NEXT_PUBLIC_API_URL}`;
                 const res = await fetch(url);
                 if (!res.ok) {
@@ -41,7 +42,7 @@ const Offers: React.FC<OffersProps> = ({selectedCategory}) => {
         };
 
         fetchOffers();
-    }, [selectedCategory]);
+    }, [selectedCategory, selectedGender]);
 
     if (loading) {
         return (

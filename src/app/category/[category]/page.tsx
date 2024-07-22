@@ -2,25 +2,23 @@
 import React from 'react';
 import Offers from '@/app/components/layouts/Offers';
 import Nav from '@/app/components/layouts/Nav';
-import { useParams, useRouter } from 'next/navigation';
+import {useParams, useSearchParams, useRouter} from 'next/navigation';
 
 const CategoryPage: React.FC = () => {
     const params = useParams();
+    const searchParams = useSearchParams();
     const router = useRouter();
-    let category: string | null = null;
 
-    if (params.category) {
-        category = Array.isArray(params.category) ? params.category[0] : params.category;
-    }
+    const category = params.category ? params.category.toString() : null;
+    const gender = searchParams.get('gender');
 
-    const handleSetCategory = (newCategory: string) => {
-        router.push(`/category/${newCategory}`);
+    const handleSetCategory = (newCategory: string, newGender: string) => {
+        router.push(`/category/${newCategory}?gender=${newGender}`);
     };
-
     return (
         <div>
-            <Nav setCategory={handleSetCategory} />
-            <Offers selectedCategory={category} />
+            <Nav setCategory={handleSetCategory}/>
+            <Offers selectedCategory={category} selectedGender={gender}/>
         </div>
     );
 };
