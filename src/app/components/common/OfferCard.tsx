@@ -5,12 +5,11 @@ import {useRouter} from 'next/navigation';
 interface OfferCardProps {
     id: string;
     name: string;
-    description: string;
     imageName: string;
     price: number;
 }
 
-const OfferCard: React.FC<OfferCardProps> = ({id, name, description, imageName, price}) => {
+const OfferCard: React.FC<OfferCardProps> = ({id, name, imageName, price}) => {
     const imageUrl = `${process.env.NEXT_PUBLIC_API_URL}/image/${imageName}`;
     const router = useRouter();
 
@@ -30,7 +29,6 @@ const OfferCard: React.FC<OfferCardProps> = ({id, name, description, imageName, 
                 />
                 <div className="mt-4">
                     <h2 className="text-lg font-bold">{name}</h2>
-                    <p className="text-gray-500">{description}</p>
                     <p className="text-gray-900 font-bold">{price.toFixed(2)}zł</p>
                 </div>
             </div>

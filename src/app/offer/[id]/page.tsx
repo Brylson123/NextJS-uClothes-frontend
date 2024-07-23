@@ -12,6 +12,7 @@ interface Offer {
     clothingCategory: string;
     url: string;
     gender: string;
+    size: string;
 }
 
 const OfferDetail: React.FC = () => {
@@ -81,6 +82,7 @@ const OfferDetail: React.FC = () => {
                 </div>
                 <div className="w-1/2 ml-8 flex flex-col justify-center">
                     <h2 className="text-3xl font-bold mb-4">{offer.name}</h2>
+                    <h2 className="text-xl font-bold mb-4">size: {offer.size}</h2>
                     <p className="text-xl text-gray-500 mb-4">{offer.description}</p>
                     <p className="text-2xl font-bold mb-4">{offer.price.toFixed(2)}zł</p>
                     <p className="text-lg mb-4">Category: {offer.clothingCategory}</p>
