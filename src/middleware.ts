@@ -25,10 +25,12 @@ export async function middleware(req: NextRequest) {
         return NextResponse.next();
     } catch (error) {
         console.error('Error verifying token:', error);
-        return  NextResponse.redirect(new URL('/admin/login', req.url));
+        return NextResponse.redirect(new URL('/admin/login', req.url));
     }
 }
 
 export const config = {
-    matcher: ['/admin/dashboard']
+    matcher: [
+        '/admin/:path((?!login).*)',
+    ],
 };
