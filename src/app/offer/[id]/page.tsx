@@ -85,7 +85,7 @@ const OfferDetail: React.FC = () => {
                     <p className="text-2xl font-bold mb-4">{offer.price.toFixed(2)}zł</p>
                     <p className="text-lg mb-4">Category: {offer.clothingCategory}</p>
                     <p className="text-lg mb-4">Gender: {offer.gender}</p>
-                    <a href={offer.url} className="px-4 py-2 bg-blue-300 text-white rounded-lg text-center">Buy Now</a>
+                    <a href={offer.url} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-center">Buy Now</a>
                 </div>
             </div>
         </div>
