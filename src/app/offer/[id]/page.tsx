@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'next/navigation';
 import Nav from '@/app/components/layouts/Nav';
 import Image from 'next/image';
+
 interface Offer {
     id: string;
     name: string;
@@ -22,7 +23,7 @@ const OfferDetail: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchOffer = async () => {
+        (async () => {
             setLoading(true);
             try {
                 const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${id}`);
@@ -36,11 +37,8 @@ const OfferDetail: React.FC = () => {
             } finally {
                 setLoading(false);
             }
-        };
+        })();
 
-        if (id) {
-            fetchOffer();
-        }
     }, [id]);
 
     if (loading) {
@@ -69,7 +67,7 @@ const OfferDetail: React.FC = () => {
 
     return (
         <div>
-            <Nav setCategory={() => {}} />
+            <Nav setCategory={() => {}}/>
             <div className="max-w-7xl mx-auto py-8 flex">
                 <div className="w-1/2">
                     <Image

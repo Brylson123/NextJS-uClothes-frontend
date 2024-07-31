@@ -21,7 +21,7 @@ const Offers: React.FC<OffersProps> = ({selectedCategory, selectedGender}) => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchOffers = async () => {
+        (async () => {
             setLoading(true);
             setError(null);
             try {
@@ -39,9 +39,7 @@ const Offers: React.FC<OffersProps> = ({selectedCategory, selectedGender}) => {
             } finally {
                 setLoading(false);
             }
-        };
-
-        fetchOffers();
+        })();
     }, [selectedCategory, selectedGender]);
 
     if (loading) {
