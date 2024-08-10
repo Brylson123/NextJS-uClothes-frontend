@@ -1,6 +1,7 @@
 'use client';
 import React, {useEffect, useState} from 'react';
 import OfferCard from '@/app/components/common/OfferCard';
+import SkeletonLoader from '@/app/components/common/SkeletonLoader';
 
 interface Offer {
     id: string;
@@ -45,7 +46,7 @@ const Offers: React.FC<OffersProps> = ({selectedCategory, selectedGender}) => {
     if (loading) {
         return (
             <div className="max-w-7xl mx-auto py-8">
-                <h1 className="text-4xl font-bold mb-8">Loading...</h1>
+                <SkeletonLoader />
             </div>
         );
     }
