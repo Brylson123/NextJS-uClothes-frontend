@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 import AdminOfferCard from "@/app/components/common/AdminOfferCard";
+import SkeletonLoader from "@/app/components/common/SkeletonLoader";
 
 interface Offer {
     id: string;
@@ -79,7 +80,13 @@ export default function AdminDashboard() {
             setError(err.message || 'An error occurred while logging out.');
         }
     };
-
+    if (loading) {
+        return (
+            <div className="max-w-7xl mx-auto py-8">
+                <SkeletonLoader />
+            </div>
+        );
+    }
     return (
         <div>
             <div className="flex justify-between items-center my-4">
