@@ -25,7 +25,11 @@ const Nav: React.FC<{ setCategory: (category: string, gender: string) => void }>
     useEffect(() => {
         return () => {
             if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current | 0);
+                Object.keys(timeoutRef.current).forEach(menu => {
+                    if (timeoutRef.current[menu]) {
+                        clearTimeout(timeoutRef.current[menu]!);
+                    }
+                });
             }
         };
     }, []);
