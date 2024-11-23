@@ -5,6 +5,7 @@ import {useRouter} from 'next/navigation';
 interface OfferCardProps {
     id: string;
     name: string;
+    description: string;
     imageName: string;
     price: number;
 }
