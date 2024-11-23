@@ -33,8 +33,13 @@ const OfferDetail: React.FC = () => {
                 const data = await res.json();
                 setOffer(data.offer);
             } catch (err) {
-                setError(err.message);
-            } finally {
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError('An unknown error occurred.');
+                }
+            }
+            finally {
                 setLoading(false);
             }
         })();
