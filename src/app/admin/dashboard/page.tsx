@@ -62,7 +62,7 @@ export default function AdminDashboard() {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch('http://localhost:8080/user/logout', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/logout`, {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -90,20 +90,39 @@ export default function AdminDashboard() {
     return (
         <div>
             <div className="flex justify-between items-center my-4">
-                <div className="w-1/3"></div>
-                <div className="flex justify-center w-1/3">
+                {/* Sekcja dla mobilnych ekranów */}
+                <div className="w-1/2 pr-2 lg:hidden">
                     <Link href="/admin/add">
-                        <p className="px-4 py-2 bg-blue-500 text-white rounded-md">
+                        <p className="w-full px-4 py-2 bg-blue-500 text-white rounded-md text-center">
                             Add New Offer
                         </p>
                     </Link>
                 </div>
-                <div className="flex justify-end w-1/3">
-                    <button onClick={handleLogout} className="px-4 py-2 bg-red-500 text-white rounded-md">
+                <div className="w-1/2 pl-2 lg:hidden">
+                    <button onClick={handleLogout} className="w-full px-4 py-2 bg-red-500 text-white rounded-md text-center">
                         Logout
                     </button>
                 </div>
+                <div className="hidden lg:flex justify-between items-center w-full">
+                    <div className="w-auto">
+                        <Link href="/admin/add">
+                            <p className="min-w-[120px] px-4 py-2 bg-blue-500 text-white rounded-md text-center">
+                                Add New Offer
+                            </p>
+                        </Link>
+                    </div>
+
+                    <div className="w-1/3 hidden lg:flex justify-center">
+                        <span className="font-bold text-lg">Admin Dashboard</span>
+                    </div>
+                    <div className="w-auto">
+                        <button onClick={handleLogout} className="min-w-[120px] px-4 py-2 bg-red-500 text-white rounded-md text-center">
+                            Logout
+                        </button>
+                    </div>
+                </div>
             </div>
+
             {showLogoutPopup && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg">
