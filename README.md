@@ -2,6 +2,14 @@
 
 This is the UClothes application. Below is an example of the .env file needed for the application to run correctly.
 
+## Demo Link
+
+You can access the live demo of the UClothes application at: https://uclothes.pl
+```
+for admin panel use https://uclothes.pl/admin/login 
+user: admin
+password: example
+```
 # Example .env.local to run the application
 ```
 NEXT_PUBLIC_API_URL=UrlAddresForApi
