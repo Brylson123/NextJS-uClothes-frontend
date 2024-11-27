@@ -23,7 +23,6 @@ const OfferCard: React.FC<OfferCardProps> = ({ id, name, imageName, price }) => 
             onClick={handleClick}
             className="cursor-pointer h-[500px] flex flex-col justify-between border rounded-lg p-4"
         >
-            {/* Obraz */}
             <div className="w-full h-[300px] relative">
                 <Image
                     src={imageUrl}
@@ -36,8 +35,6 @@ const OfferCard: React.FC<OfferCardProps> = ({ id, name, imageName, price }) => 
                     priority
                 />
             </div>
-
-            {/* Tekst */}
             <div className="flex flex-col justify-end mt-4">
                 <h2 className="text-lg font-bold line-clamp-2 overflow-hidden text-ellipsis">
                     {name}
