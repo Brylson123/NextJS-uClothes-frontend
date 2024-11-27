@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Nav from '@/app/components/layouts/Nav';
 import Image from 'next/image';
+import SkeletonLoaderOffer from "@/app/components/common/SkeletonLoaderOffer";
 
 interface Offer {
     id: string;
@@ -46,11 +47,15 @@ const OfferDetail: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="max-w-7xl mx-auto py-8">
-                <h1 className="text-4xl font-bold mb-8">Loading...</h1>
+            <div>
+                <Nav setCategory={() => {}} />
+                <div className="max-w-7xl mx-auto py-8 pt-16">
+                    <SkeletonLoaderOffer />
+                </div>
             </div>
         );
     }
+
 
     if (error) {
         return (
@@ -71,33 +76,38 @@ const OfferDetail: React.FC = () => {
     return (
         <div>
             <Nav setCategory={() => {}} />
-            <div className="max-w-7xl mx-auto py-8 flex flex-col lg:flex-row lg:items-center lg:justify-between">
-                <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
-                    <Image
-                        src={`https://storage.googleapis.com/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${offer.imageName}`}
-                        alt={offer.name}
-                        width={600}
-                        height={600}
-                        className="object-contain w-full h-auto"
-                    />
-                </div>
-                <div className="w-full lg:w-1/2 mt-8 lg:mt-0 flex flex-col items-center lg:items-start">
-                    <h2 className="text-3xl font-bold mb-4">{offer.name}</h2>
-                    <h2 className="text-xl font-bold mb-4">Size: {offer.size}</h2>
-                    <p className="text-xl text-gray-500 mb-4 text-center lg:text-left">{offer.description}</p>
-                    <p className="text-2xl font-bold mb-4">{offer.price.toFixed(2)}zł</p>
-                    <p className="text-lg mb-4">Category: {offer.clothingCategory}</p>
-                    <p className="text-lg mb-4">Gender: {offer.gender}</p>
-                    <a
-                        href={offer.url}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700"
-                    >
-                        Buy Now
-                    </a>
-                </div>
+            <div className="max-w-7xl mx-auto py-8 pt-16 flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                {loading ? <SkeletonLoaderOffer /> : (
+                    <>
+                        <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
+                            <Image
+                                src={`https://storage.googleapis.com/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${offer.imageName}`}
+                                alt={offer.name}
+                                width={600}
+                                height={600}
+                                className="object-contain w-full h-auto"
+                            />
+                        </div>
+                        <div className="w-full lg:w-1/2 mt-8 lg:mt-0 flex flex-col items-center lg:items-start">
+                            <h2 className="text-3xl font-bold mb-4">{offer.name}</h2>
+                            <h2 className="text-xl font-bold mb-4">Size: {offer.size.toUpperCase()}</h2>
+                            <p className="text-xl text-gray-500 mb-4 text-center lg:text-left">{offer.description}</p>
+                            <p className="text-2xl font-bold mb-4">{offer.price.toFixed(2)}zł</p>
+                            <p className="text-lg mb-4">Category: {offer.clothingCategory}</p>
+                            <p className="text-lg mb-4">Gender: {offer.gender}</p>
+                            <a
+                                href={offer.url}
+                                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700"
+                            >
+                                Buy Now
+                            </a>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );
+
 };
 
 export default OfferDetail;
