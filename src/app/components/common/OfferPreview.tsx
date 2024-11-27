@@ -43,7 +43,7 @@ const OfferPreview: React.FC<OfferPreviewProps> = ({ formData }) => {
                 </div>
             )}
             <h3 className="text-2xl font-bold mb-2">{name || 'Offer Name'}</h3>
-            <p className="text-gray-700 mb-1">Size: {size || 'Size'}</p>
+            <p className="text-gray-700 mb-1">Size: {size.toUpperCase() || 'Size'}</p>
             <p className="text-gray-500 mb-4">{description || 'Offer Description'}</p>
             <p className="text-xl font-bold mb-4">{price ? `${price} zł` : 'Price'}</p>
             <p className="text-gray-700 mb-1">Category: {clothingCategory || 'Category'}</p>

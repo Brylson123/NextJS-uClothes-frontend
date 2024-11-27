@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 interface OfferCardProps {
     id: string;
@@ -10,7 +10,7 @@ interface OfferCardProps {
     price: number;
 }
 
-const OfferCard: React.FC<OfferCardProps> = ({id, name, imageName, price}) => {
+const OfferCard: React.FC<OfferCardProps> = ({ id, name, imageName, price }) => {
     const imageUrl = `https://storage.googleapis.com/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${imageName}`;
     const router = useRouter();
 
@@ -19,24 +19,30 @@ const OfferCard: React.FC<OfferCardProps> = ({id, name, imageName, price}) => {
     };
 
     return (
-        <div onClick={handleClick} className="cursor-pointer">
-            <div className={`p-4 border rounded w-full`}>
-                <div className="w-full h-64 relative">
-                    <Image
-                        src={imageUrl}
-                        alt={name}
-                        fill
-                        className="object-contain"
-                        sizes="(max-width: 768px) 100vw,
-                               (max-width: 1200px) 50vw,
-                               33vw"
-                        priority
-                    />
-                </div>
-                <div className="mt-4">
-                    <h2 className="text-lg font-bold">{name}</h2>
-                    <p className="text-gray-900 font-bold">{price.toFixed(2)}zł</p>
-                </div>
+        <div
+            onClick={handleClick}
+            className="cursor-pointer h-[500px] flex flex-col justify-between border rounded-lg p-4"
+        >
+            {/* Obraz */}
+            <div className="w-full h-[300px] relative">
+                <Image
+                    src={imageUrl}
+                    alt={name}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw,
+                           (max-width: 1200px) 50vw,
+                           33vw"
+                    priority
+                />
+            </div>
+
+            {/* Tekst */}
+            <div className="flex flex-col justify-end mt-4">
+                <h2 className="text-lg font-bold line-clamp-2 overflow-hidden text-ellipsis">
+                    {name}
+                </h2>
+                <p className="text-gray-900 font-bold mt-2">{price.toFixed(2)}zł</p>
             </div>
         </div>
     );

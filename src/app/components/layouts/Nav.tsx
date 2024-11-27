@@ -1,11 +1,11 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, {useEffect, useRef, useState} from 'react';
+import {useRouter} from 'next/navigation';
 import Link from 'next/link';
 
-const Nav: React.FC<{ setCategory: (category: string, gender: string) => void }> = ({ setCategory }) => {
-    const [isDropdownOpen, setIsDropdownOpen] = useState<{ [key: string]: boolean }>({ MAN: false, WOMAN: false });
-    const timeoutRef = useRef<{ [key: string]: NodeJS.Timeout | null }>({ MAN: null, WOMAN: null });
+const Nav: React.FC<{ setCategory: (category: string, gender: string) => void }> = ({setCategory}) => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState<{ [key: string]: boolean }>({MAN: false, WOMAN: false});
+    const timeoutRef = useRef<{ [key: string]: NodeJS.Timeout | null }>({MAN: null, WOMAN: null});
     const router = useRouter();
 
     const handleMouseEnter = (menu: string) => {
@@ -13,12 +13,12 @@ const Nav: React.FC<{ setCategory: (category: string, gender: string) => void }>
             clearTimeout(timeoutRef.current[menu] || 0);
             timeoutRef.current[menu] = null;
         }
-        setIsDropdownOpen((prev) => ({ ...prev, [menu]: true }));
+        setIsDropdownOpen((prev) => ({...prev, [menu]: true}));
     };
 
     const handleMouseLeave = (menu: string) => {
         timeoutRef.current[menu] = setTimeout(() => {
-            setIsDropdownOpen((prev) => ({ ...prev, [menu]: false }));
+            setIsDropdownOpen((prev) => ({...prev, [menu]: false}));
         }, 80);
     };
 
@@ -72,12 +72,14 @@ const Nav: React.FC<{ setCategory: (category: string, gender: string) => void }>
                             {renderDropdown('WOMAN', ['All', 'Shirts', 'Pants', 'Jackets', 'Shoes', 'Accessories'])}
                         </div>
                     </div>
-                    <div className="flex-1 flex items-center justify-end sm:justify-center">
-                        <Link href="/" className="text-lg font-bold text-gray-700">
+                    <div className="flex-1 flex items-center justify-center lg:justify-start">
+                        <Link
+                            href="/"
+                            className="text-lg font-bold text-gray-700 lg:static lg:ml-0 lg:pr-0 absolute right-4 top-4"
+                        >
                             uClothes
                         </Link>
                     </div>
-                    <div className="flex-1"></div>
                 </div>
             </div>
         </nav>
