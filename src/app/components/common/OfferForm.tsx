@@ -1,6 +1,6 @@
 'use client';
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import Image from "next/image";
+
+import React, {ChangeEvent, FormEvent} from 'react';
 import Link from "next/link";
 
 interface FormDataState {
@@ -10,27 +10,32 @@ interface FormDataState {
     imageFile: File | null;
     price: string;
     clothingCategory: string;
-    url: string;
     gender: string;
     size: string;
+    active: boolean;
 }
 
-interface OfferFormProps {
+interface EditOfferFormProps {
     formData: FormDataState;
     setFormData: (data: FormDataState) => void;
     handleSubmit: (e: FormEvent) => void;
-    action: 'edit' | 'add';
 }
 
-const OfferForm: React.FC<OfferFormProps> = ({ formData, setFormData, handleSubmit, action }) => {
+const OfferForm: React.FC<EditOfferFormProps> = ({formData, setFormData, handleSubmit}) => {
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const {name, value, type} = e.target;
+
+        if (type === "checkbox") {
+            const checked = (e.target as HTMLInputElement).checked;
+            setFormData({...formData, [name]: checked});
+        } else {
+            setFormData({...formData, [name]: value});
+        }
     };
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
-        setFormData({ ...formData, imageFile: file });
+        setFormData({...formData, imageFile: file});
     };
 
     return (
@@ -85,17 +90,6 @@ const OfferForm: React.FC<OfferFormProps> = ({ formData, setFormData, handleSubm
                 </select>
             </div>
             <div className="mb-4">
-                <label className="block text-gray-700 mb-2">URL</label>
-                <input
-                    type="text"
-                    name="url"
-                    value={formData.url}
-                    onChange={handleInputChange}
-                    className="w-full border border-gray-300 p-2 rounded-lg"
-                    required
-                />
-            </div>
-            <div className="mb-4">
                 <label className="block text-gray-700 mb-2">Gender</label>
                 <select
                     name="gender"
@@ -121,6 +115,16 @@ const OfferForm: React.FC<OfferFormProps> = ({ formData, setFormData, handleSubm
                 />
             </div>
             <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Active</label>
+                <input
+                    type="checkbox"
+                    name="active"
+                    checked={formData.active}
+                    onChange={handleInputChange}
+                    className="w-4 h-4"
+                />
+            </div>
+            <div className="mb-4">
                 <label className="block text-gray-700 mb-2">Image</label>
                 <input
                     type="file"
@@ -128,12 +132,11 @@ const OfferForm: React.FC<OfferFormProps> = ({ formData, setFormData, handleSubm
                     onChange={handleFileChange}
                     className="w-full border border-gray-300 p-2 rounded-lg"
                 />
-                {formData.imageName && <p className="mt-2 text-sm text-gray-500">Selected file: {formData.imageName}</p>}
+                {formData.imageName &&
+                    <p className="mt-2 text-sm text-gray-500">Selected file: {formData.imageName}</p>}
             </div>
             <div className="flex justify-between mt-4">
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-lg">
-                    {action === 'edit' ? 'Update Offer' : 'Add Offer'}
-                </button>
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-lg">Save Changes</button>
                 <Link href="/admin/dashboard">
                     <button type="button" className="bg-yellow-400 text-black px-4 py-2 rounded-lg">Back to dashboard</button>
                 </Link>

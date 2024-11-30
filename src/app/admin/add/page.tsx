@@ -1,7 +1,8 @@
-'use client'
-import React, {useState} from 'react';
-import OfferForm from '@/app/components/common/OfferForm';
+'use client';
+
+import React, { useState } from 'react';
 import OfferPreview from '@/app/components/common/OfferPreview';
+import OfferForm from '@/app/components/common/OfferForm';
 
 export interface FormDataState {
     name: string;
@@ -10,11 +11,12 @@ export interface FormDataState {
     imageFile: File | null;
     price: string;
     clothingCategory: string;
-    url: string;
     gender: string;
     size: string;
+    active: boolean;
 }
-export default function AddOfferForm() {
+
+export default function AddOfferPage() {
     const [formData, setFormData] = useState<FormDataState>({
         name: '',
         description: '',
@@ -22,9 +24,9 @@ export default function AddOfferForm() {
         imageName: '',
         price: '',
         clothingCategory: '',
-        url: '',
         gender: '',
-        size: ''
+        size: '',
+        active: false,
     });
     const [success, setSuccess] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
@@ -40,9 +42,9 @@ export default function AddOfferForm() {
         if (formData.imageFile) data.append('image', formData.imageFile);
         data.append('price', formData.price);
         data.append('clothingCategory', formData.clothingCategory);
-        data.append('url', formData.url);
         data.append('gender', formData.gender);
         data.append('size', formData.size);
+        data.append('active', formData.active.toString());
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/add`, {
@@ -71,7 +73,11 @@ export default function AddOfferForm() {
                     <h2 className="text-2xl font-bold mb-6">Add New Offer</h2>
                     {success && <p className="text-green-500 mb-4">Offer added successfully!</p>}
                     {error && <p className="text-red-500 mb-4">{error}</p>}
-                    <OfferForm formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} action="add" />
+                    <OfferForm
+                        formData={formData}
+                        setFormData={setFormData}
+                        handleSubmit={handleSubmit}
+                    />
                 </div>
                 <div className="lg:w-1/2">
                     <h2 className="text-2xl font-bold mb-6">Offer Preview</h2>

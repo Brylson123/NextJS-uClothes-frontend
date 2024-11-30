@@ -1,5 +1,5 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import OfferCard from '@/app/components/common/OfferCard';
 import SkeletonLoader from '@/app/components/common/SkeletonLoader';
 
@@ -9,6 +9,7 @@ interface Offer {
     description: string;
     imageName: string;
     price: number;
+    active: boolean;
 }
 
 interface OffersProps {
@@ -16,7 +17,7 @@ interface OffersProps {
     selectedGender: string | null;
 }
 
-const Offers: React.FC<OffersProps> = ({selectedCategory, selectedGender}) => {
+const Offers: React.FC<OffersProps> = ({ selectedCategory, selectedGender }) => {
     const [offers, setOffers] = useState<Offer[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -27,14 +28,14 @@ const Offers: React.FC<OffersProps> = ({selectedCategory, selectedGender}) => {
             setError(null);
             try {
                 const url = selectedCategory
-                    ? `${process.env.NEXT_PUBLIC_API_URL}/category/${selectedCategory}?gender=${selectedGender}`
-                    : `${process.env.NEXT_PUBLIC_API_URL}`;
+                    ? `${process.env.NEXT_PUBLIC_API_URL}/active/category/${selectedCategory}?gender=${selectedGender}`
+                    : `${process.env.NEXT_PUBLIC_API_URL}/active`;
                 const res = await fetch(url);
                 if (!res.ok) {
                     throw new Error(`HTTP error! status: ${res.status}`);
                 }
                 const data = await res.json();
-                setOffers(data.offers || []);
+                setOffers(data.offers);
             } catch (err: any) {
                 setError(err.message);
             } finally {

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
@@ -12,11 +12,12 @@ interface FormDataState {
     imageFile: File | null;
     price: string;
     clothingCategory: string;
-    url: string;
     gender: string;
     size: string;
+    active: boolean;
 }
-export default function EditOfferForm() {
+
+export default function EditOfferPage() {
     const { id } = useParams();
     const [formData, setFormData] = useState<FormDataState>({
         name: '',
@@ -25,9 +26,9 @@ export default function EditOfferForm() {
         imageFile: null,
         price: '',
         clothingCategory: '',
-        url: '',
         gender: '',
-        size: ''
+        size: '',
+        active: false,
     });
     const [success, setSuccess] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
@@ -48,9 +49,9 @@ export default function EditOfferForm() {
                     imageFile: null,
                     price: data.offer.price,
                     clothingCategory: data.offer.clothingCategory,
-                    url: data.offer.url,
                     gender: data.offer.gender,
-                    size: data.offer.size
+                    size: data.offer.size,
+                    active: data.offer.active,
                 });
             } catch (err) {
                 setError('Failed to fetch offer details.');
@@ -69,9 +70,9 @@ export default function EditOfferForm() {
         if (formData.imageFile) data.append('image', formData.imageFile);
         data.append('price', formData.price);
         data.append('clothingCategory', formData.clothingCategory);
-        data.append('url', formData.url);
         data.append('gender', formData.gender);
         data.append('size', formData.size);
+        data.append('active', formData.active.toString());
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/update/${id}`, {
@@ -100,7 +101,11 @@ export default function EditOfferForm() {
                     <h2 className="text-2xl font-bold mb-6">Edit Offer</h2>
                     {success && <p className="text-green-500 mb-4">Offer updated successfully!</p>}
                     {error && <p className="text-red-500 mb-4">{error}</p>}
-                    <OfferForm formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} action="edit" />
+                    <OfferForm
+                        formData={formData}
+                        setFormData={setFormData}
+                        handleSubmit={handleSubmit}
+                    />
                 </div>
                 <div className="lg:w-1/2">
                     <h2 className="text-2xl font-bold mb-6">Offer Preview</h2>
