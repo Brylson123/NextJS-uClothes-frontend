@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "node passenger_startup.js"
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^8.7.0",

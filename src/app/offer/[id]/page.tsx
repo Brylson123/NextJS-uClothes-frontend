@@ -88,7 +88,7 @@ const OfferDetail: React.FC = () => {
             <div className="max-w-7xl mx-auto py-8 pt-16 flex flex-col lg:flex-row lg:items-center lg:justify-between">
                 <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
                     <Image
-                        src={`https://storage.googleapis.com/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${offer.imageName}`}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/image/${offer.imageName}`}
                         alt={offer.name}
                         width={600}
                         height={600}

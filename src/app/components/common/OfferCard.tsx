@@ -11,7 +11,7 @@ interface OfferCardProps {
 }
 
 const OfferCard: React.FC<OfferCardProps> = ({ id, name, imageName, price }) => {
-    const imageUrl = `https://storage.googleapis.com/${process.env.NEXT_PUBLIC_BUCKET_NAME}/${imageName}`;
+    const imageUrl = `${process.env.NEXT_PUBLIC_API_URL}/image/${imageName}`;
     const router = useRouter();
 
     const handleClick = () => {
